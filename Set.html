@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ข้อมูลส่วนตัว</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: 
+            url('BF.jpg'); /* เปลี่ยน 'background-image.jpg' เป็นที่อยู่รูปภาพที่คุณต้องการใช้ */
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            color: #fff; /* ปรับสีตัวอักษรให้เหมาะสมกับพื้นหลัง */
+        }
+    
+        .container {
+            width: 300px;
+            margin: 0 auto;
+            padding: 50px;
+            background-color: rgba(255, 255, 255, 0.7); /* เปลี่ยนสีพื้นหลังใน container ตามต้องการ */
+            border: 1px solid #d6d8db;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+    
+        h2 {
+            text-align: center;
+            color: #3f51b5;
+        }
+    
+        .form-group {
+            margin-bottom: 20px;
+        }
+    
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #757575;
+        }
+    
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #b0bec5;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+    
+        button[type="submit"] {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+        }
+    
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <h2>กรอกข้อมูลส่วนตัว</h2>
+        <form action="index.html" method="post" onsubmit="return validateForm()">
+            <div class="form-group">
+                <label for="title">คำนำหน้าชื่อ:</label>
+                <input type="text" id="title" name="title" placeholder="ระบุคำนำหน้าชื่อ" required>
+            </div>
+            <div class="form-group">
+                <label for="first_name">ชื่อ:</label>
+                <input type="text" id="first_name" name="first_name" required>
+            </div>
+            <div class="form-group">
+                <label for="last_name">นามสกุล:</label>
+                <input type="text" id="last_name" name="last_name" required>
+            </div>
+            <div class="form-group">
+                <label for="id_card">เลขบัตรประชาชน:</label>
+                <input type="text" id="id_card" name="id_card" required>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <script>
+            function validateForm() {
+                var title = document.getElementById("title").value;
+                var firstName = document.getElementById("first_name").value;
+                var lastName = document.getElementById("last_name").value;
+                var idCard = document.getElementById("id_card").value;
+                
+                // ตรวจสอบว่าชื่อหรือนามสกุลไม่ใช่ภาษาอังกฤษ
+                if (firstName === "" || lastName === "" || !/^[ก-๏\s]*$/.test(firstName) || !/^[ก-๏\s]*$/.test(lastName)) {
+                    alert("กรอกชื่อเเละนามสกุลให้ถูกต้อง");
+                    return false; // ไม่ส่งแบบฟอร์มถ้าชื่อหรือนามสกุลมีตัวอักษรพิเศษหรือภาษาอังกฤษ
+                } else if (idCard === "") {
+                    alert("กรอกเลขบัตรประชาชน");
+                    return false; // ไม่ถูกต้องเนื่องจากเป็นค่าว่าง
+                } else if (!/^[0-9]+$/.test(idCard)) {
+                    alert("กรอกเลขบัตรประชาชนให้ถูกต้อง");
+                    return false; // ไม่ถูกต้องเนื่องจากมีอักขระที่ไม่ใช่ตัวเลข
+                } else if (idCard.length !== 13) {
+                    alert("กรอกเลขบัตรประชาชนให้ถูกต้อง");
+                    return false; // ไม่ถูกต้องเนื่องจากความยาวไม่ถูกต้อง
+                } else if (/[a-zA-Z]/.test(idCard)) {
+                    alert("กรอกเลขบัตรประชาชนให้ถูกต้อง");
+                    return false; // มีตัวอักษรภาษาอังกฤษหรืออักษรอื่น ๆ อยู่
+                }
+                alert("กรอกข้อมูลเสร็จสิ้น");
+
+                // ส่งไปยังหน้า "index.html"
+                window.location.href = "index.html";
+
+                return true; // ส่งแบบฟอร์มเมื่อผ่านการตรวจสอบทั้งหมด
+            }
+        </script>
+    </div>
+</body>
+</html>
